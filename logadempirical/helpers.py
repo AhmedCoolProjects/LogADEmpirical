@@ -15,7 +15,7 @@ def arg_parser():
     parser.add_argument("--model_name", help="which model to use", default="DeepLog",
                         choices=["DeepLog", "LogAnomaly", "LogRobust", "NeuralLog", "CNN", "PLELog", "LogBERT"])
     parser.add_argument("--dataset_name", help="which dataset to use", default="HDFS",
-                        choices=["HDFS", "BGL", "Thunderbird", "Spirit", "Hadoop"])
+                        choices=["HDFS", "BGL", "Thunderbird", "Spirit", "Hadoop", "LINUX24"])
     parser.add_argument("--device", help="hardware device", default="cpu")
     parser.add_argument("--data_dir", default="./dataset/", metavar="DIR", help="data directory")
     parser.add_argument("--output_dir", default="./output", metavar="DIR", help="output directory")

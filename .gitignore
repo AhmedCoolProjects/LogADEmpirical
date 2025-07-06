@@ -8,3 +8,5 @@
 dataset/test.json
 dataset/train.json
 dataset/train_labels.json
+
+dataset/crawl-300d-2M.vec

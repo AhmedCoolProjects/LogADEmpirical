@@ -14,18 +14,18 @@ This repository provides the implementation of recent log-based anomaly detectio
 
 ## I. Studied Models
 
-| Model                        | Paper                                                                                                                                          |
-|:-----------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
-| **Unsupervised**             |                                                                                                                                                |
-| DeepLog (CCS '17)            | [DeepLog: Anomaly Detection and Diagnosis from System Logs through Deep Learning](https://dl.acm.org/doi/abs/10.1145/3133956.3134015)          |
-| LogAnomaly (IJCAI '19)       | [LogAnomaly: Unsupervised Detection of Sequential and Quantitative Anomalies in Unstructured Logs](https://www.ijcai.org/proceedings/2019/658) |
-| __LogBERT (IJCNN '21)__ | [LogBERT: Log Anomaly Detection via BERT](https://ieeexplore.ieee.org/abstract/document/9534113)                                               |
-| **Semi-supervised**          |                                                                                                                                                |
-| PLELog (ICSE '21)            | [Semi-Supervised Log-Based Anomaly Detection via Probabilistic Label Estimation](https://ieeexplore.ieee.org/document/9401970/)                |
-| **Supervised**               |                                                                                                                                                |
-| CNN (DSAC '18)               | [Detecting Anomaly in Big Data System Logs Using Convolutional Neural Network](https://ieeexplore.ieee.org/document/8511880)                   |
-| LogRobust (ESEC/FSE '19)     | [Robust log-based anomaly detection on unstable log data](https://dl.acm.org/doi/10.1145/3338906.3338931)                                      |
-| __NeuralLog (ASE '21)__          | [Log-based Anomaly Detection Without Log Parsing](https://ieeexplore.ieee.org/document/9678773)                                                |
+| Model                    | Paper                                                                                                                                          |
+| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Unsupervised**         |                                                                                                                                                |
+| DeepLog (CCS '17)        | [DeepLog: Anomaly Detection and Diagnosis from System Logs through Deep Learning](https://dl.acm.org/doi/abs/10.1145/3133956.3134015)          |
+| LogAnomaly (IJCAI '19)   | [LogAnomaly: Unsupervised Detection of Sequential and Quantitative Anomalies in Unstructured Logs](https://www.ijcai.org/proceedings/2019/658) |
+| **LogBERT (IJCNN '21)**  | [LogBERT: Log Anomaly Detection via BERT](https://ieeexplore.ieee.org/abstract/document/9534113)                                               |
+| **Semi-supervised**      |                                                                                                                                                |
+| PLELog (ICSE '21)        | [Semi-Supervised Log-Based Anomaly Detection via Probabilistic Label Estimation](https://ieeexplore.ieee.org/document/9401970/)                |
+| **Supervised**           |                                                                                                                                                |
+| CNN (DSAC '18)           | [Detecting Anomaly in Big Data System Logs Using Convolutional Neural Network](https://ieeexplore.ieee.org/document/8511880)                   |
+| LogRobust (ESEC/FSE '19) | [Robust log-based anomaly detection on unstable log data](https://dl.acm.org/doi/10.1145/3338906.3338931)                                      |
+| **NeuralLog (ASE '21)**  | [Log-based Anomaly Detection Without Log Parsing](https://ieeexplore.ieee.org/document/9678773)                                                |
 
 ## II. Requirements
 
@@ -52,12 +52,15 @@ We use datasets collected by LogPAI for evaluation. The datasets are available
 at [loghub](https://github.com/logpai/loghub).
 The details of datasets is shown as belows:
 
-| **Dataset**  | **Size** | **# Logs** | **# Anomalies** | **Anomaly Ratio** |
-|:-------------|:---------|:-----------|:----------------|:------------------|
-| HDFS         | 1.5  GB  | 11,175,629 | 16,838          | 2.93%             |
-| BGL          | 743 MB   | 4,747,963  | 348,460         | 7.34 %            |
-| Thunderbird  | 1.4 GB   | 10,000,000 | 4,934           | 0.49%             |
-| Spirit       | 1.4 GB   | 5,000,000  | 764,500         | 15.29%            |
+| **Dataset**   | **Size** | **# Logs** | **# Anomalies** | **Anomaly Ratio** |
+| :------------ | :------- | :--------- | :-------------- | :---------------- |
+| HDFS          | 1.5 GB   | 11,175,629 | 16,838          | 2.93%             |
+| BGL           | 743 MB   | 4,747,963  | 348,460         | 7.34%             |
+| Thunderbird   | 1.4 GB   | 10,000,000 | 4,934           | 0.49%             |
+| Spirit        | 1.4 GB   | 5,000,000  | 764,500         | 15.29%            |
+|               |          |            |                 |                   |
+| Linux24 APT   | ? MB     | 121,590    | 24,779          | 20.38%            |
+| Windows25 APT | ? GB     | ?          | ?               | ?                 |
 
 #### 1.2. Parsing
 
@@ -66,6 +69,7 @@ We use AEL, Spell, Drain, and IPLoM for our experiments.
 The configuration for each parser used in our experiments can be found [here](docs/PARSING.md).
 
 #### 1.3. Embedding
+
 For a fair comparison, we use the same fastText-based embedding method for all models.
 Use the following command to generate embeddings for log templates:
 
@@ -82,7 +86,9 @@ $ python generate_embeddings.py <dataset> <strategy>
 ```
 
 ### 2. Training and Testing
+
 #### 2.1. Configuration File
+
 The configuration files used to set up the hyperparameters for training and testing can be found at `/config`.
 Main parameters are described as follows:
 
@@ -104,13 +110,13 @@ Main parameters are described as follows:
 Training parameters such as `batch_size`, `lr`, `max_epoch`, `optimizer`, etc. are also defined in the configuration files.
 
 #### 2.2. To run the code
+
 ```shell
 python main_run.py --config_file <config_file>
 # where `<config_file>` is the path to the configuration file.
 ```
 
 To see all the options, run `python main_run.py -h`.
-
 
 ### Citation
 

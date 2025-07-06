@@ -94,7 +94,7 @@ def process_dataset(logger: Logger,
             test_window = window_df[n_train:]
             # train_window = session_window(train_df, id_regex, label_dict, window_size=int(window_size))
             # test_window = session_window(df, id_regex, label_dict, window_size=int(window_size))
-        elif dataset_name == "BGL":
+        elif dataset_name == "BGL" or dataset_name == "LINUX24":
             # df["NodeId"] = df["Node"].apply(lambda x: str(x).split(":")[0])
             window_df = session_window_bgl(df)
             n_train = int(len(window_df) * train_size)
@@ -105,7 +105,7 @@ def process_dataset(logger: Logger,
     else:
         raise NotImplementedError(f"{grouping} is not implemented")
 
-    os.makedirs(output_dir, exist_ok=True)
+    # os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, "train.pkl"), mode="wb") as f:
         pickle.dump(train_window, f)
     with open(os.path.join(output_dir, "test.pkl"), mode="wb") as f:

@@ -1,4 +1,6 @@
 import sys
+import nltk
+nltk.download('stopwords')
 
 import pandas as pd
 import numpy as np
@@ -88,12 +90,13 @@ def generate_embeddings_fasttext(templates: List[str], strategy: str = 'average'
         X = vectorizer.fit_transform(clean_templates)
         tfidf = transformer.fit_transform(X)
         tfidf = tfidf.toarray()
-        words = vectorizer.get_feature_names()
+        words = vectorizer.get_feature_names_out()
+        words_list = words.tolist()  # Convert to list for index() method
         single_weights = []
         for i, (template, k) in enumerate(templates):
             for word in template.strip().split():
-                if word in words:
-                    single_weights.append(tfidf[i][words.index(word)])
+                if word in words_list:
+                    single_weights.append(tfidf[i][words_list.index(word)])
                 else:
                     single_weights.append(0)
             embeddings[k] = np.mean(log_key2vec(template, single_weights), axis=0).tolist()
@@ -122,9 +125,27 @@ def load_embeddings_fasttext(embedding_path: str) -> dict:
 if __name__ == '__main__':
     dataset = sys.argv[1]
     strategy = sys.argv[2]
-    print(f'Generating embeddings for {dataset} using {strategy}...')
-    template_df = pd.read_csv(f'./{dataset}/{dataset}.log_templates.csv')
+    if True:
+        _template_name = 't'
+        _structured_name = 's'
+        _dataset_num = '05'
+    else:
+        _template_name = 'log_templates'
+        _structured_name = ''
+        _dataset_num = dataset
+    
+    print(f'Generating embeddings for {dataset} : {_dataset_num} using {strategy}...')
+    template_df = pd.read_csv(f'./preprocessed/{dataset}/{_dataset_num}.{_template_name}.csv')
     templates = template_df['EventTemplate'].tolist()
     embeddings = generate_embeddings_fasttext(templates, strategy=strategy)
-    with open(f'./{dataset}/{dataset}.log_embeddings_{strategy}.json', 'w') as f:
+    with open(f'./preprocessed/{dataset}/{_dataset_num}.log_embeddings_{strategy}.json', 'w') as f:
+        json.dump(embeddings, f)
+    
+    _dataset_num = '07'
+    
+    print(f'Generating embeddings for {dataset} : {_dataset_num} using {strategy}...')
+    template_df = pd.read_csv(f'./preprocessed/{dataset}/{_dataset_num}.{_template_name}.csv')
+    templates = template_df['EventTemplate'].tolist()
+    embeddings = generate_embeddings_fasttext(templates, strategy=strategy)
+    with open(f'./preprocessed/{dataset}/{_dataset_num}.log_embeddings_{strategy}.json', 'w') as f:
         json.dump(embeddings, f)
