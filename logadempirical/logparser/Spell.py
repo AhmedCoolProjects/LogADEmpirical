@@ -6,6 +6,10 @@ License     : MIT
 
 import sys
 # import re
+import sys
+sys.setrecursionlimit(2000)  # or a higher value if needed
+
+
 import regex as re
 import os
 import numpy as np
@@ -341,16 +345,26 @@ class LogParser:
 if __name__ == "__main__":
     import os
     import pandas as pd
-    print(os.getcwd())
-    os.chdir("../")
-    print(os.getcwd())
 
-    lp = LogParser()
-    # print(lp.LCS(seq1="abcbb", seq2="bc"))
-    output_dir = 'demo/Spell_result/'  # The output directory of parsing results
-    log_file = 'HDFS.log'  # The input log file name
+
+
+    
+    
+    
+    output_dir = '/home/ahmed.bargady/lustre/nlp_team-um6p-st-sccs-id7fz1zvotk/IDS/ahmed.bargady/data/github/my-logadempirical/dataset/preprocessed/LINUX24/spell/07/'  # The output directory of parsing results
+    data_dir = '/home/ahmed.bargady/lustre/nlp_team-um6p-st-sccs-id7fz1zvotk/IDS/ahmed.bargady/data/github/my-logadempirical/dataset/preprocessed/LINUX24/'  # The input directory of the log file
+    log_file = 'LINUX24.log'  # The input log file name
     log_structured_file = output_dir + log_file + "_structured.csv"
-    df = pd.read_csv(log_structured_file)
-    for _, row in df.iterrows():
-        lp.get_parameter_list(row)
+    
+    log_format = '<timestamp> <src_id> <content>'  # The log format
+    regex = [r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}']  # The regex to match the timestamp
+    
+        
+    parser = LogParser(indir=data_dir,
+                            outdir=output_dir,
+                            log_format="- <Content>",
+                            tau=0.7,
+                            rex=[],
+                            keep_para=False)
+    parser.parse(log_file)
 
