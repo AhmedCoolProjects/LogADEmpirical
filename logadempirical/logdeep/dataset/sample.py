@@ -100,8 +100,8 @@ def load_features(data_path, only_normal=True, min_len=0):
 
 
 def sliding_window(data_iter, vocab, window_size, is_train=True, data_dir="dataset/", is_predict_logkey=True,
-                   e_name="embeddings.json", semantics=True, sample_ratio=1, in_size=768):
-    if e_name == "neural":
+                   e_name="embeddings.json", semantics=False, sample_ratio=1, in_size=768):
+    if e_name == "neural" or not semantics:
         event2semantic_vec = {}
         is_bert = True
     else:

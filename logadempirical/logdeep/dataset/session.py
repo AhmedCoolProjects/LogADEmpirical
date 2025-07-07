@@ -126,7 +126,11 @@ def sliding_window(raw_data, para):
 
     assert len(start_end_index_pair) == len(new_data)
     print('there are %d instances (sliding windows) in this dataset\n' % len(start_end_index_pair))
-    return pd.DataFrame(new_data, columns=raw_data.columns)
+    # ...existing code...
+    return pd.DataFrame(new_data, columns=[
+        "Timestamp", "Label", "EventId", "time_duration", "EventTemplate"
+    ])
+    # ...existing code...
 
 
 def fixed_window(raw_data, para):

@@ -23,5 +23,6 @@ def run_deeplog(options):
         print("vocab size", len(vocab))
         print("save vocab in", options["vocab_path"])
         vocab.save_vocab(options["vocab_path"])
+    options["semantics"] = False
     Trainer(options).start_train()
     Predicter(options).predict_semi_supervised()

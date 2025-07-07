@@ -26,7 +26,7 @@ def arg_parser():
     parser.add_argument("--model_name", help="which model to train", choices=["logbert", "deeplog", "loganomaly",
                                                                               "logrobust", "baseline", "neurallog",
                                                                               "cnn", "autoencoder", "plelog"])
-    parser.add_argument("--dataset_name", help="which dataset to use", choices=["hdfs", "bgl", "tbird", "hdfs_2k",
+    parser.add_argument("--dataset_name", help="which dataset to use", choices=["hdfs", "bgl", "tbird", "hdfs_2k", "LINUX24",
                                                                                 "bgl_2k", "tdb", "spirit", "bo",
                                                                                 "bgl2", "hadoop"])
     parser.add_argument("--device", help="hardware device", default="cuda")

@@ -89,6 +89,10 @@ def process_dataset(data_dir, output_dir, log_file, dataset_name, window_type, w
         # data preprocess
         if 'bgl' in dataset_name:
             df["datetime"] = pd.to_datetime(df['Time'], format='%Y-%m-%d-%H.%M.%S.%f')
+        elif 'LINUX24' in dataset_name:
+            # ...existing code...
+            df['datetime'] = pd.to_datetime(df["Timestamp"], format='%Y-%m-%d %H:%M:%S.%f')
+            # ...existing code...
         else:
             df['datetime'] = pd.to_datetime(df["Date"] + " " + df['Time'], format='%Y-%m-%d %H:%M:%S')
 

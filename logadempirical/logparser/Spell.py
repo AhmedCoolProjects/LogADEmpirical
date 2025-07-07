@@ -351,19 +351,20 @@ if __name__ == "__main__":
     
     
     
-    output_dir = '/home/ahmed.bargady/lustre/nlp_team-um6p-st-sccs-id7fz1zvotk/IDS/ahmed.bargady/data/github/my-logadempirical/dataset/preprocessed/LINUX24/spell/07/'  # The output directory of parsing results
+    output_dir = '/home/ahmed.bargady/lustre/nlp_team-um6p-st-sccs-id7fz1zvotk/IDS/ahmed.bargady/data/github/my-logadempirical/dataset/preprocessed/LINUX24/'  # The output directory of parsing results
     data_dir = '/home/ahmed.bargady/lustre/nlp_team-um6p-st-sccs-id7fz1zvotk/IDS/ahmed.bargady/data/github/my-logadempirical/dataset/preprocessed/LINUX24/'  # The input directory of the log file
     log_file = 'LINUX24.log'  # The input log file name
     log_structured_file = output_dir + log_file + "_structured.csv"
     
-    log_format = '<timestamp> <src_id> <content>'  # The log format
+    # log_format = '<timestamp> <src_id> <content>'  # The log format
     regex = [r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}']  # The regex to match the timestamp
     
         
     parser = LogParser(indir=data_dir,
                             outdir=output_dir,
-                            log_format="- <Content>",
-                            tau=0.7,
+                            # log_format="- <Content>",
+                            log_format="- <Timestamp> : <Location> : <SrcId> : <Content> : <MitreId> : <MitreTactic> : <MitreTechnique> : <Label>",
+                            tau=0.5,
                             rex=[],
                             keep_para=False)
     parser.parse(log_file)
